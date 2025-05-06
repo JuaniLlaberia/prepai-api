@@ -10,6 +10,7 @@ import (
 type InterviewQuestion struct {
 	Question string `json:"question"`
 	Hint     string `json:"hint"`
+	Type     string `json:"type"`
 }
 
 type InterviewResponse struct {
@@ -20,14 +21,23 @@ type InterviewResponse struct {
 func GenerateInterview(jobRole string, jobLevel string, topics []string) (InterviewResponse, error) {
 	prompt := fmt.Sprintf(`
 		Generate 5 job interview questions for a role of %v with a %v. And a title for the interview.
-			The interview topics are: %v.
-			For each question provide the question and a hint (short text to help the interviewee understand the question) following this schema:
-			{
-				title: string,
-				questions: [
-					{question: string, hint: string}
-				]
-			}
+		The interview topics are: %v.
+		For each question provide:
+		- The question.
+		- A hint (Short text to help the interviewee).
+		- Question type ("Behavioral", "Technical", "HR", etc)
+
+		Follow this JSON schema:
+		{
+			"title": string,
+			"questions": [
+				{
+					"question": string,
+					"hint": string,
+					"type": string
+				}
+			]
+		}
 	`, jobRole, jobLevel, topics)
 
 	result, err := configs.Gemini(prompt)
