@@ -38,7 +38,7 @@ func DefaultSafetySettings() []*genai.SafetySetting {
 	}
 }
 
-func Gemini(prompt string) (string, error) {
+func Gemini(contents []*genai.Content) (string, error) {
 	apiKey := ProcessEnv("GEMINI_API_KEY")
 	ctx := context.Background()
 
@@ -85,8 +85,7 @@ func Gemini(prompt string) (string, error) {
 		SafetySettings:    DefaultSafetySettings(),
 	}
 
-	genaiPrompt := genai.Text(prompt)
-	result, err := client.Models.GenerateContent(ctx, "gemini-2.0-flash", genaiPrompt, config)
+	result, err := client.Models.GenerateContent(ctx, "gemini-2.0-flash", contents, config)
 
 	if err != nil {
 		return "", err
