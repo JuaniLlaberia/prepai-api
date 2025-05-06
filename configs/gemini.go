@@ -38,9 +38,6 @@ func DefaultSafetySettings() []*genai.SafetySetting {
 	}
 }
 
-// (*genai.Model, *genai.Client, error)
-
-// func Gemini(ctx context.Context, config GeminiConfig) {
 func Gemini(prompt string) (string, error) {
 	apiKey := ProcessEnv("GEMINI_API_KEY")
 	ctx := context.Background()
