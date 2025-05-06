@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"google.golang.org/genai"
 	"prepai.app/configs"
 )
 
@@ -40,7 +41,7 @@ func GenerateInterview(jobRole string, jobLevel string, topics []string) (Interv
 		}
 	`, jobRole, jobLevel, topics)
 
-	result, err := configs.Gemini(prompt)
+	result, err := configs.Gemini(genai.Text(prompt))
 	if err != nil {
 		return InterviewResponse{}, err
 	}

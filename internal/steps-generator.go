@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	"google.golang.org/genai"
 	"prepai.app/configs"
 )
 
@@ -47,7 +48,7 @@ func GenerateSteps(moduleTitle string, moduleDescription string, topics []string
 		}
 	`, moduleTitle, moduleDescription, topicsStr)
 
-	result, err := configs.Gemini(prompt)
+	result, err := configs.Gemini(genai.Text(prompt))
 	if err != nil {
 		return StepsResponse{}, err
 	}

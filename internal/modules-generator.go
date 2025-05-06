@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"strings"
 
+	"google.golang.org/genai"
 	"prepai.app/configs"
 )
 
@@ -53,7 +54,7 @@ func GenerateModules(jobRole string, jobLevel string, jobDescription string, top
 		}
 	`, jobRole, jobLevel, jobDescription, topicsStr)
 
-	result, err := configs.Gemini(prompt)
+	result, err := configs.Gemini(genai.Text(prompt))
 	if err != nil {
 		return ModuleResponse{}, err
 	}

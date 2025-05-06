@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"google.golang.org/genai"
 	"prepai.app/configs"
 )
 
@@ -49,7 +50,7 @@ func GenerateQuestionAnalysis(question string) (QuestionAnalysisResponse, error)
 		}
 	`, question)
 
-	result, err := configs.Gemini(prompt)
+	result, err := configs.Gemini(genai.Text(prompt))
 	if err != nil {
 		return QuestionAnalysisResponse{}, err
 	}

@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 
+	"google.golang.org/genai"
 	"prepai.app/configs"
 )
 
@@ -46,7 +47,7 @@ func GenerateExam(subject string, difficulty string, examType string) (ExamRespo
 		}
 `, examType, subject, difficulty)
 
-	result, err := configs.Gemini(prompt)
+	result, err := configs.Gemini(genai.Text(prompt))
 	if err != nil {
 		return ExamResponse{}, err
 	}
