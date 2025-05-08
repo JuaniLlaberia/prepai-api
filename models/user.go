@@ -45,6 +45,32 @@ func GetUser(userId bson.ObjectID) (*User, error) {
 	return &user, nil
 }
 
+func GetOrCreateUser(email string) (*User, error) {
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	collection := configs.GetCollection("users")
+
+	projection := bson.M{
+		"password": 0,
+	}
+	opts := options.FindOne().SetProjection(projection)
+
+	var user User
+	err := collection.FindOne(ctx, bson.M{"email": email}, opts).Decode(&user)
+	if err != nil {
+		if err == mongo.ErrNoDocuments {
+			user.Email = email
+			user.Save()
+
+			return &user, nil
+		}
+		return nil, err
+	}
+
+	return &user, nil
+}
+
 func (user *User) Save() error {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
