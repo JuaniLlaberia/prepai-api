@@ -15,6 +15,7 @@ func main() {
 
 	// Routes
 	routes.UserRoute(server)
+	routes.AuthRoute(server)
 
 	server.Run(":8080")
 }
