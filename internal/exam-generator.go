@@ -9,9 +9,10 @@ import (
 )
 
 type ExamQuestion struct {
-	Question      string   `json:"question"`
-	Options       []string `json:"options"`
-	CorrectAnswer int64    `json:"correctAnswer"`
+	Question    string   `json:"question"`
+	Options     []string `json:"options"`
+	Correct     int64    `json:"correct"`
+	Explanation string   `json:"explanation"`
 }
 
 type ExamResponse struct {
@@ -33,7 +34,8 @@ func GenerateExam(subject string, difficulty string, examType string) (ExamRespo
 		For each question:
 		- Randomly shuffle the answer options so the correct one is not always in the same index.
 		- Provide the correct answer's index (0-based).
-		- Make sure the correctAnswer value matches the position of the correct option after shuffling.
+		- Make sure the correct answer value matches the position of the correct option after shuffling.
+		- Provide an explanation (Explain in 3-4 lines why the correct answer is correct)
 		- Format the output in the following JSON schema:
 		{
 			"title": string,
@@ -41,7 +43,8 @@ func GenerateExam(subject string, difficulty string, examType string) (ExamRespo
 				{
 				"question": string,
 				"options": [string],
-				"correctAnswer": int64
+				"correct": int64
+				"explanation": string
 				}
 			]
 		}

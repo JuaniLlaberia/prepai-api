@@ -21,6 +21,7 @@ type Metrics struct {
 }
 
 type ResumeAnalyzerResponse struct {
+	Title                  string  `json:"title"`
 	OverallScore           int64   `json:"overall_score"`
 	AnalysisSummary        string  `json:"analysis_summary"`
 	ImprovementSuggestions string  `json:"improvement_suggestions"`
@@ -45,6 +46,7 @@ func ResumeAnalyzer(file multipart.File, header *multipart.FileHeader, jobDescri
 
 		Return the results using this JSON schema:
 		{
+			"title": string, // A title for this analysis (no more than one line)
 			"overall_score": int, // From 1 to 100: how well the resume fits the job,
 			"analysis_summary": string, // A brief 5-8 line summary of the resume quality and fit,
 			"metrics": {
@@ -78,8 +80,6 @@ func ResumeAnalyzer(file multipart.File, header *multipart.FileHeader, jobDescri
 		return ResumeAnalyzerResponse{}, err
 	}
 
-	fmt.Println(result)
-
 	var analysis ResumeAnalyzerResponse
 
 	err = json.Unmarshal([]byte(result), &analysis)
@@ -87,8 +87,6 @@ func ResumeAnalyzer(file multipart.File, header *multipart.FileHeader, jobDescri
 		fmt.Print(err)
 		return ResumeAnalyzerResponse{}, err
 	}
-
-	fmt.Print("asdsd")
 
 	return analysis, nil
 }
