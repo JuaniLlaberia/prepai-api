@@ -592,7 +592,7 @@ func SetupInterviewAttemptCollection(ctx context.Context) error {
 
 	jsonSchema := bson.M{
 		"bsonType": "object",
-		"required": []string{"user_id", "interview_id", "answers"},
+		"required": []string{"user_id", "interview_id"},
 		"properties": bson.M{
 			"answers": bson.M{
 				"type": "array",
