@@ -71,12 +71,11 @@ func UpdateUser(context *gin.Context) {
 
 	err = updatedUser.Update()
 	if err != nil {
-		fmt.Print(err)
 		context.JSON(http.StatusBadRequest, gin.H{"message": "Failed to update user."})
 		return
 	}
 
-	context.JSON(http.StatusOK, gin.H{"message": "User updated successfully."})
+	context.JSON(http.StatusOK, gin.H{"message": "User updated successfully.", "user": updatedUser})
 }
 
 func DeleteUser(context *gin.Context) {
