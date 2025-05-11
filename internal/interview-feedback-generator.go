@@ -8,6 +8,11 @@ import (
 	"prepai.app/configs"
 )
 
+type UserInterviewResponse struct {
+	Question string
+	Answer   string
+}
+
 type InterviewFeedback struct {
 	Feedback   string  `json:"feedback"`
 	Score      float64 `json:"score"`
@@ -21,9 +26,9 @@ type InterviewFeedbackResponse struct {
 	AreasToImprove []string            `json:"areas_to_improve"`
 }
 
-func GenerateInterviewFeedback(responses, jobRole, jobLevel string) (InterviewFeedbackResponse, error) {
+func GenerateInterviewFeedback(responses []UserInterviewResponse) (InterviewFeedbackResponse, error) {
 	prompt := fmt.Sprintf(`
-		Generate feedback on how the interviewee answered the following questions for a %v-level %v role.
+		Generate feedback on how the interviewee answered the following questions.
 
 		This is the JSON containing the questions and answers: %v
 
@@ -58,7 +63,7 @@ func GenerateInterviewFeedback(responses, jobRole, jobLevel string) (InterviewFe
 		"strengths": [string],
   		"areas_to_improve": [string]
 		}
-	`, jobLevel, jobRole, responses)
+	`, responses)
 
 	result, err := configs.Gemini(genai.Text(prompt))
 	if err != nil {
