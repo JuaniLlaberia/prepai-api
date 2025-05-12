@@ -19,6 +19,7 @@ func main() {
 	routes.InterviewRoute(server)
 	routes.ExamRoute(server)
 	routes.QuestionRoute(server)
+	routes.ResumeRoute(server)
 
 	server.Run(":8080")
 }
