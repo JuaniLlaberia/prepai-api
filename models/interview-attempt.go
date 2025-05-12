@@ -76,6 +76,7 @@ func (attempt InterviewAttempt) Update() error {
 		"$set": bson.M{
 			"answers":          attempt.Answers,
 			"passed":           attempt.Passed,
+			"score":            attempt.Score,
 			"analysis":         attempt.Analysis,
 			"areas_to_improve": attempt.AreasToImprove,
 			"strengths":        attempt.Strengths,
