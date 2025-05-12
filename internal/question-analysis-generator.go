@@ -28,7 +28,7 @@ func GenerateQuestionAnalysis(question string) (QuestionAnalysisResponse, error)
 
 		Return a JSON object with the following fields:
 		- "type": The type of the question. Choose one of: "Behavioral", "Technical", "HR", "Situational", or "Other".
-		- "difficulty": One of: "Easy", "Medium", or "Hard".
+		- "difficulty": One of: "easy", "medium", or "hard".
 		- "explanation": A 2-3 sentence explanation of what the question evaluates and why interviewers ask it.
 		- "expected_length": How long in minutes should the interviewee take to answer.
 		- "ideal_answer": An object that contains:
