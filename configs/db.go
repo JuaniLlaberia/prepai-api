@@ -707,7 +707,7 @@ func SetupExamAttemptCollection(ctx context.Context) error {
 
 	jsonSchema := bson.M{
 		"bsonType": "object",
-		"required": []string{"user_id", "exam_id", "answers"},
+		"required": []string{"user_id", "exam_id"},
 		"properties": bson.M{
 			"answers": bson.M{
 				"type": "array",
@@ -727,7 +727,7 @@ func SetupExamAttemptCollection(ctx context.Context) error {
 							"bsonType":    "number",
 							"description": "Correct answer (index)",
 						},
-						"Explanation": bson.M{
+						"explanation": bson.M{
 							"bsonType":    "string",
 							"description": "Brief explanation on why the correct answer is correct",
 						},
