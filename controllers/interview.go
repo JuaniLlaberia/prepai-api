@@ -76,6 +76,13 @@ func CreateInterview(context *gin.Context) {
 		})
 	}
 
+	if interview.JobRole == "" || interview.JobLevel == "" || len(interview.Topics) == 0 {
+		context.JSON(http.StatusBadRequest, gin.H{
+			"message": "Missing either job role, level or topics",
+		})
+		return
+	}
+
 	results, err := internal.GenerateInterview(interview.JobRole, interview.JobLevel, interview.Topics)
 	if err != nil {
 		context.JSON(http.StatusInternalServerError, gin.H{
